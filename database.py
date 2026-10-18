@@ -5,10 +5,10 @@ from sqlalchemy.orm import sessionmaker, declarative_base
 DATABASE_URL = os.environ.get("DATABASE_URL")
 
 if DATABASE_URL:
-    # Some hosts (Render included, historically) hand out postgres://,
-    # but SQLAlchemy 2.x specifically wants postgresql://
-    if DATABASE_URL.startswith("postgres://"):
-        DATABASE_URL = DATABASE_URL.replace("postgres://", "postgresql://", 1)
+    # Be explicit about the driver — without "+psycopg2", SQLAlchemy may
+    # default to the newer psycopg (v3) package instead, which isn't installed.
+    DATABASE_URL = DATABASE_URL.replace("postgres://", "postgresql+psycopg2://", 1)
+    DATABASE_URL = DATABASE_URL.replace("postgresql://", "postgresql+psycopg2://", 1)
     engine = create_engine(DATABASE_URL)
 else:
     DATABASE_URL = "sqlite:///./transactions.db"
