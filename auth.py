@@ -7,7 +7,7 @@ import bcrypt
 load_dotenv()
 
 # --- Config ---
-SECRET_KEY = os.environ["8948390d3553c5b71cf796569ad3bd9315ff815976c65fb5a3b9f6203e75b4f4"]
+SECRET_KEY = os.environ["SECRET_KEY"]
 ALGORITHM = "HS256"
 ACCESS_TOKEN_EXPIRE_MINUTES = 30
 
